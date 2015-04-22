@@ -1,0 +1,41 @@
+# Header
+menu:
+  Home: /
+  Archives: /archives
+  AnimateYourHTML5: /AnimateYourHTML5/AnimateYourHTML5.html
+  About: /about
+
+# Content
+excerpt_link: Read More
+fancybox: true
+
+# Sidebar
+sidebar: right
+widgets:
+- recent_posts
+- category
+- archive
+# - tag
+- tagcloud
+thumbnail: true
+
+# Contacts
+contacts:
+  github: http://github.com/arayzou
+  weibo: http://weibo.com/reallythere
+  twitter: https://twitter.com/Aray_zou
+  facebook: https://www.facebook.com/zou.aray.9
+#  dribbble: '#'
+#  rss: /atom.xml
+
+# Links
+links:
+  Hexo: http://hexo.io
+
+# Miscellaneous
+google_analytics: UA-35043536-1
+favicon: img/favicon1.ico
+twitter: Aray_zou
+google_plus:
+fb_admins:
+fb_app_id:
