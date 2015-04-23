@@ -51,7 +51,7 @@
     for(var i=0;i<$shareBtn.length;i++){
       bShare.addEntry({
         title:$shareBtn.eq(i).attr('data-title'),
-        url:$shareBtn.eq(i).attr('data-url')
+        url:encodeURI($shareBtn.eq(i).attr('data-url'))
       });
     }
   });
