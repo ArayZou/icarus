@@ -178,11 +178,22 @@
 .article-share-link
   cursor: pointer
   float: right
-  margin-left: 20px
-  &:before
-    content: "\f064"
-    font-family: FontAwesome
-    padding-right: 6px
+  margin-left: 20px !important;
+  font: 12px "Helvetica Neue", "Microsoft Yahei", Helvetica, Arial, sans-serif !important;
+  width:auto !important;
+  height: auto !important;
+  color: #999 !important;
+  .buzzButton
+    color: #999 !important;
+    background: none !important;
+    font-weight: normal !important;
+    line-height: 1.6em;
+    &:before
+      content: "\f064"
+      font-family: FontAwesome
+      padding-right: 6px
+    &:after
+      content: "分享"
 
 #article-nav
   clearfix()

@@ -42,3 +42,17 @@
 <% } %>
 
 <%- js('js/script') %>
+
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#uuid=e422b215-a873-4721-b546-180b42346bc9&style=10&bgcolor=#F89C2F&bp=sinaminiblog,weixin,twitter,facebook,qqmb,qzone,renren,gmail,evernote,tumblr,linkedin,itieba,myspace,bgoogle,pinterest,youdaonote,baiduhi&ssc=false"></script>
+
+<script type="text/javascript">
+  $(function(){
+    var $shareBtn = $('.bshareDiv');
+    for(var i=0;i<$shareBtn.length;i++){
+      bShare.addEntry({
+        title:$shareBtn.eq(i).attr('data-title'),
+        url:$shareBtn.eq(i).attr('data-url')
+      });
+    }
+  });
+</script>

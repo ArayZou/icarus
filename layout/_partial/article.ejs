@@ -23,7 +23,7 @@
       <% } %>
     </div>
     <footer class="article-footer">
-      <a data-url="<%- post.permalink %>" data-id="<%= post._id %>" data-title="<%= post.title %>,<%= config.titleSeo %>" class="article-share-link"><%= __('article.share') %></a>
+      <a class="bshareDiv article-share-link" href="http://www.bshare.cn/share" data-title="<%= post.title %>,<%= config.titleSeo %>" data-url="<%- post.permalink %>">分享按钮</a>
       <% if (post.comments && config.disqus_shortname){ %>
         <a href="<%- post.permalink %>#disqus_thread" class="article-comment-link"><%= __('article.comments') %></a>
       <% } else if (post.comments && config.duoshuo_shortname){ %>
