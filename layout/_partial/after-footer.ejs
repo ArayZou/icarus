@@ -28,11 +28,11 @@
 <% if (config.highlight.enable){ %>
   <script src="<%- config.root %>js/highlight.min.js"></script>
   <script type="text/javascript">
-    if($('pre code').length>0){
+    $(document).ready(function() {
       $('pre code').each(function(i, block) {
         hljs.highlightBlock(block);
       });
-    }
+    });
   </script>
 <% } %>
 
