@@ -12,7 +12,7 @@ $(function(){
     var $gridU = $('.grid_u');
     //有效格坐标数组
     var gridXY = [];
-        
+
     var gridSize = 101;
 
     //计算宽高各需要多少个格子，先向下取整，然后计算高度要+1
@@ -66,7 +66,7 @@ $(function(){
         // var Done = new Date();
         // console.log('fillInt function cost Time: '+(Done-Begin)+'ms');
     }
-    
+
     //移动或点击内容格
     var $moveGrid = '',
         moveGridLeft = 0,
@@ -87,7 +87,7 @@ $(function(){
             console.log(eventObj);
             $moveGrid = $(eventObj.target);
 
-            
+
             ifGridCanMove = $moveGrid.parent().hasClass('clicked')?false:true;
             // 鼠标点击位置
             downClientX = eventObj.clientX,
@@ -145,7 +145,7 @@ $(function(){
                     //      17  5   1   6   18
                     //      10  2   格  3   11
                     //      19  7   4   8   20
-                    //      23  15  12  16  24 
+                    //      23  15  12  16  24
                     $this.parent().addClass('clicked');
                     $this.parent().siblings('.grid_u').hide();
                     //周围可以用单元格数组，JS小数加减有问题，只好用这种方法，如果不够可以再加
@@ -225,7 +225,7 @@ $(function(){
                     $this.animate({
                         left:gridConLeft,
                         top:0
-                    },300);  
+                    },300);
 
                     $this.siblings('.grid_con').animate({
                         left:gridConLeft,
@@ -274,7 +274,7 @@ $(function(){
                         continue;
                     }
                 }
-                if(!uIDleft&&uIDtop){       
+                if(!uIDleft&&uIDtop){
                     //右边，左侧有效上方无效
                     uIDX = uIDX-1;
                     uIDY = uIDY;
@@ -349,5 +349,5 @@ $(function(){
     //开发者console
     console.log('%c','background:url(http://arayzou.qiniudn.com/personal/Aray1_sumiao.jpg);padding:43px 50px;line-height:100px;height:1px;border-radius:50px;background-size:100px 100px;')
     console.log('邹瑞的前端博客：http://arayzou.com \n\n如果你遇到BUG或者对代码有建议，欢迎联系我~ \nQQ:4751738(邹瑞) \nE-mail:zrxldl@gmail.com');
-    console.log('本页面github地址：https://github.com/ArayZou/arayzou_hexoTheme');
+    console.log('github地址：https://github.com/ArayZou');
 });
