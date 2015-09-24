@@ -1,0 +1,251 @@
+<!--
+    Powered By nodePPT - This is probably the best web presentation tool so far!
+    version: 1.3.1
+    site: https://github.com/ksky521/nodePPT
+-->
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>React入门 - By ArayZou</title>
+    <link rel="stylesheet" media="all" href="./css/nodeppt.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="./css/phone.css">
+    
+    <link rel="stylesheet" href="./js/highlight/styles/monokai_sublime.css">
+    <link rel="stylesheet" href="./css/font-awesome.css">
+    
+<link rel="stylesheet" href="./css/theme.dark.css">
+</head>
+<body>
+<div class="slides">
+    <slides id="container">
+        <slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>React入门</h1>
+<h2><code>learn once, write everywhere</code></h2>
+<p><small>分享者：邹瑞</small></p>
+<p><small>2015.09.24</small></p>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>React是?</h2>
+
+</hgroup><article>
+
+<p>React不同于angular或者backbone，做的事情比较简单，比较像一个模板引擎强化版</p>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>为什么使用 React?</h2>
+<p><p>React是为了解决一个问题：构建随着时间数据不断变化的大规模应用程序</p><br>
+<small><a href="https://www.youtube.com/watch?v=z5e7kWSHWTg&amp;feature=youtu.be&amp;t=148" target="_blank">https://www.youtube.com/watch?v=z5e7kWSHWTg&amp;feature=youtu.be&amp;t=148</a></small></p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h1>React概念</h1>
+
+</hgroup><article>
+
+<ul class="fadeIn">
+<li>组件化</li>
+<li>Virtual DOM</li>
+<li>JSX</li>
+<li>单向数据绑定</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h1>组件化</h1>
+
+</hgroup><article>
+
+<p>React 都是关于构建可复用的组件。事实上，通过 React 你唯一要做的事情就是构建组件。得益于其良好的封装性，组件使代码复用、测试和关注分离（separation of concerns）更加简单。</p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>组件的两个核心概念</h2>
+
+</hgroup><article>
+
+<ul>
+<li><code>state</code> : state 是组件的当前状态，可以把组件简单看成一个“状态机”，根据状态 state 呈现不同的 UI 展示。</li>
+<li><code>props</code> : props 就是组件的属性，由外部通过 JSX 属性传入设置，一旦初始设置完成，就可以认为 this.props 是不可更改的，所以不要轻易更改设置 this.props 里面的值</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h1>组件生命周期</h1>
+<h2>初始化状态</h2>
+
+</hgroup><article>
+
+<ul>
+<li><code>getInitialState</code>&amp;<code>getDefaultProps</code>:获取初始化的状态state/props</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h1>组件生命周期</h1>
+
+</hgroup><article>
+
+<h2>挂载组件</h2>
+<ul>
+<li><code>componentWillMount</code>: 在初始化渲染执行之前立刻调用，只会调用一次</li>
+<li><code>componentDidMount</code>: 在初始化渲染执行之后立刻调用一次，此时虚拟DOM有了实体DOM的对应</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h1>组件生命周期</h1>
+
+</hgroup><article>
+
+<h2>更新组件状态</h2>
+<ul>
+<li><code>componentWillUpdate</code>: 组件刷新视图前调用</li>
+<li><code>componentDidUpdate</code>: 组件刷新视图后调用</li>
+<li><code>componentWillReceiveProps</code>: 在组件接收到新的 props 的时候调用。在初始化渲染的时候，该方法不会调用。</li>
+<li><code>shouldComponentUpdate</code>: 在接收到新的 props 或者 state，将要渲染之前调用。该方法在初始化渲染的时候不会调用</li>
+<li><code>componentWillUnmount</code>: 组件从DOM树中移除时调用</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>DOM操作</h1>
+<h2>Refs和getDOMNode()</h2>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h1>Virtual DOM</h1>
+
+</hgroup><article>
+
+<p>组件并不是真实的 DOM 节点，而是存在于内存之中的一种数据结构，叫做虚拟 DOM （virtual DOM）。只有当它插入文档以后，才会变成真实的 DOM 。根据 React 的设计，所有的 DOM 变动，都先在虚拟 DOM 上发生，然后再将实际发生变动的部分，反映在真实 DOM上，这种算法叫做 DOM diff ，它可以极大提高网页的性能表现。</p>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h1>DOM diff</h1>
+
+</hgroup><article>
+
+<p>中文：<a href="http://segmentfault.com/a/1190000000606216" target="_blank">http://segmentfault.com/a/1190000000606216</a></p>
+<p>原版：<a href="http://calendar.perfplanet.com/2013/diff/" target="_blank">http://calendar.perfplanet.com/2013/diff/</a></p>
+
+<p><img src="./img/react-js-vdom.png" alt=""></p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h1>JSX</h1>
+
+</hgroup><article>
+
+<ul>
+<li>className</li>
+<li>标签必须闭合 <code>&lt;div&gt;&lt;/div&gt;</code> <code>&lt;input /&gt;</code></li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h1>使用react的建议</h1>
+
+</hgroup><article>
+
+<ul>
+<li>规划好组件树</li>
+<li>UI事件尽量不操作UI，操作states</li>
+<li>UI组件之间的通讯尽量抽象到数据层面</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>官方例子</h2>
+<p><a href="http://reactjs.cn/react/docs/thinking-in-react.html">thinking in react</a></p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h1>扩展</h1>
+
+</hgroup><article>
+
+<ul>
+<li>Flux，Reflux，Redux</li>
+<li>React with Browserify</li>
+<li>React Native</li>
+</ul>
+
+</article></section></slide>
+        
+
+        <slide class="slide logoslide dark nobackground">
+            <article class="flexbox vcenter">
+              <h2 style="color: white;">Powered By nodePPT v1.3.1</h2>
+            </article>
+          </slide>
+        <div class="slideTip" id="tip"></div>
+    </slides>
+</div>
+<canvas id="drawBoard" class="draw-board" width="900" height="700"></canvas>
+<div class="progress"><span id="progress"></span></div>
+<div id="_buttons">
+    <div class="_btn-box" id="_btn-box" style="display:none;">
+        <button class="fa fa-arrow-circle-left" id="_btn-prev"></button>
+        <button class="fa fa-arrow-circle-right" id="_btn-next"></button>
+        <button class="fa fa-paint-brush" id="_btn-brush"></button>
+        <button class="fa fa-compress" id="_btn-overview" data-toggle="fa fa-expand"></button>
+    </div>
+    <button class="fa fa-bars" id="_btn-bar"  data-toggle="fa fa-close"></button>
+</div>
+<script src="./js/mixjs/lib/mix.0.3.0.min.js"></script>
+<script>
+var base = location.protocol + '//' + location.host;
+
+var path = location.pathname.split('/').filter(function(v){
+    return !!v;
+});
+path.pop();
+path = path.join('/');
+MixJS.config({
+    baseURL: [ base, path, 'js'].join('/')+'/'
+});
+
+</script>
+<script src="./js/mixjs/lib/event/broadcast.js"></script>
+<script src="./js/nodeppt.js"></script>
+<script>
+Slide.init({
+    containerID: 'container',
+    drawBoardID: 'drawBoard',
+    slideClass: '.slide',
+    buildClass: '.build',
+    progressID: 'progress',
+    transition: 'move',
+    width: 1100,
+    dir: './',
+    
+    //打开下面的注释就开启postMessage方式
+    //访问网址127.0.0.1:8080/ppt/demo#client
+    control:{
+        type: 'postMessage',
+        args:{
+            isControl:  false
+        }
+    },
+    
+    tipID: 'tip'
+});
+MixJS.loadJS('highlight/hljs-0.8.js',function(){
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+});
+</script>
+ 
+
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  config: ["TeX-AMS-MML_HTMLorMML.js"],
+  tex2jax: {inlineMath: [['\\(','\\)']]}});
+  //['$','$'], 避免货币价格冲突
+</script>
+<script type="text/javascript" src="./js/mathjax/MathJax.js"></script>
+
+<!--placeholder-->
+</body>
+</html>
