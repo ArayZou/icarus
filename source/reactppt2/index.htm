@@ -1,0 +1,249 @@
+<!--
+    Powered By nodePPT - This is probably the best web presentation tool so far!
+    version: 1.3.1
+    site: https://github.com/ksky521/nodePPT
+-->
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>React with Flux - By ArayZou</title>
+    <link rel="stylesheet" media="all" href="./css/nodeppt.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="./css/phone.css">
+    
+    <link rel="stylesheet" href="./js/highlight/styles/monokai_sublime.css">
+    <link rel="stylesheet" href="./css/font-awesome.css">
+    
+<link rel="stylesheet" href="./css/theme.moon.css">
+</head>
+<body>
+<div class="slides">
+    <slides id="container">
+        <slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>React Flux理解</h1>
+<p><small>分享者：邹瑞</small></p>
+<p><small>2015.10.15</small></p>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>什么是Flux?</h2>
+
+</hgroup><article>
+
+<p>Flux是一种模式，被用来描述“单向”的数据流，且包含某些特殊的事件和监听器</p>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>什么时候需要使用Flux?</h2>
+<p>如果你的应用需要处理动态的数据，那很可能需要使用 Flux。</p>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h1>Flux包括：</h1>
+
+</hgroup><article>
+
+<ul>
+<li>dispatcher</li>
+<li>stores</li>
+<li>views(React的组件)</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p><img src="./img/Flux-primary-mental.jpg" alt=""></p>
+<div style="text-align: left;">
+<p>单向的数据流是Flux应用的核心特性，上图应该成为Flux程序员的主要心智模型。</p><br>
+<p>Dispatcher，stores和views是拥有清晰的输入输出的独立节点。而actions是包含了新的数据和身份属性的简单对象。</p>
+</div>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p><p style="text-align: left;">用户的交互可能会使views产生新的action，这个action可以向整个系统中传播：</p><br>
+<img src="./img/Flux-primary-mental-2.jpg" alt=""></p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>dispatcher</h1>
+<p><p>Dispatcher 本质上就是一个事件系统。它负责广播事件和注册 callback。有且只有一个全局的 Dispatcher。</p>
+<br>
+<a target="_blank" href="http://facebook.github.io/flux/docs/dispatcher.html#content">Facebook的dispatcher库</a></p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>Store</h1>
+<p>Store响应事件，Store内有这个应用的State和对应的逻辑. </p>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>dispatcher例子</h1>
+<pre><code>
+var AppDispatcher = new Dispatcher();
+</code></pre>
+<p>现在有个button，带有点击事件，相当于action</p>
+<p style="text-align: left;font-size:16px;background:#23241f;">&lt;button onClick={ this.createNewItem }>New Item</button&gt;</p>
+<p style="text-align: left; font-size:18px;">View 层触发一个特定事件，包括事件名和新条目的数据</p>
+<pre><code style="text-align: left;">
+createNewItem :function( evt ) {
+    AppDispatcher.dispatch({
+        eventName: 'new-item',
+        newItem: { name: 'Marco'}    
+    });
+}
+</code></pre>
+<p style="text-align: left; font-size:18px;">Store在Dispatcher注册相应事件名和处理数据的逻辑代码并提供回调函数.</p>
+<pre><code style="text-align: left;">
+AppDispatcher.register(function(action) {
+    switch( action.eventName ) {
+        case 'new-item':
+            //alert(action.newItem)
+            //处理数据
+            this.emitChange();
+            break;
+    }
+    return true;
+})
+</code></pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>Store 触发 “change” 事件,View 层响应 “change” 事件</h1>
+<p>store处理完数据后，还要触发一个改变事件，让view层响应，才能改变相应地state来重新渲染，然而这部分工作Flux并没有提供，我们需要用到一个event 类库，比如官方例子里的EventEmitter</p>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>Store 触发 “change” 事件</h1>
+<pre><code>
+emitChange: function() {
+    this.emit(CHANGE_EVENT);
+},
+addChangeListener: function(callback) {
+    this.on(CHANGE_EVENT, callback);
+},
+removeChangeListener: function(callback) {
+    this.removeListener(CHANGE_EVENT, callback);
+}
+
+`````
+
+AppDispatcher.register(function(action) {
+    switch( action.eventName ) {
+        case 'new-item':
+            //处理数据
+            //alert(action.newItem)
+            //触发change事件
+            this.emitChange();
+            break;
+    }
+    return true;
+})
+</code></pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>View 层响应 “change” 事件</h1>
+<pre><code>
+componentDidMount: function() {
+    TodoStore.addChangeListener(this._onChange);
+},
+
+componentWillUnmount: function() {
+    TodoStore.removeChangeListener(this._onChange);
+},
+
+······
+
+_onChange: function() {
+    this.setState(getTodoState());
+}
+</code></pre>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p>整个一个环完成：添加一个新条目，View 触发一个行为，Store 对这个行为作出相应，Store 更新，Store 触发 change 事件，接着 View 响应这个 change 事件进行重绘。</p>
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p>官方例子：todomvc</p>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>more</h1>
+<ul>
+<li><a href="http://rackt.org/redux/index.html">redux</a></li>
+<li><a href="http://camsong.github.io/redux-in-chinese/index.html">redux中文</a></li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<p><img src="./img/weibo.png" alt=""></p>
+
+</article></section></slide>
+        
+
+        <slide class="slide logoslide dark nobackground">
+            <article class="flexbox vcenter">
+              <h2 style="color: white;">Powered By nodePPT v1.3.1</h2>
+            </article>
+          </slide>
+        <div class="slideTip" id="tip"></div>
+    </slides>
+</div>
+<canvas id="drawBoard" class="draw-board" width="900" height="700"></canvas>
+<div class="progress"><span id="progress"></span></div>
+<div id="_buttons">
+    <div class="_btn-box" id="_btn-box" style="display:none;">
+        <button class="fa fa-arrow-circle-left" id="_btn-prev"></button>
+        <button class="fa fa-arrow-circle-right" id="_btn-next"></button>
+        <button class="fa fa-paint-brush" id="_btn-brush"></button>
+        <button class="fa fa-compress" id="_btn-overview" data-toggle="fa fa-expand"></button>
+    </div>
+    <button class="fa fa-bars" id="_btn-bar"  data-toggle="fa fa-close"></button>
+</div>
+<script src="./js/mixjs/lib/mix.0.3.0.min.js"></script>
+<script>
+var base = location.protocol + '//' + location.host;
+
+var path = location.pathname.split('/').filter(function(v){
+    return !!v;
+});
+path.pop();
+path = path.join('/');
+MixJS.config({
+    baseURL: [ base, path, 'js'].join('/')+'/'
+});
+
+</script>
+<script src="./js/mixjs/lib/event/broadcast.js"></script>
+<script src="./js/nodeppt.js"></script>
+<script>
+Slide.init({
+    containerID: 'container',
+    drawBoardID: 'drawBoard',
+    slideClass: '.slide',
+    buildClass: '.build',
+    progressID: 'progress',
+    transition: 'move',
+    width: 1100,
+    dir: './',
+    
+    //打开下面的注释就开启postMessage方式
+    //访问网址127.0.0.1:8080/ppt/demo#client
+    control:{
+        type: 'postMessage',
+        args:{
+            isControl:  false
+        }
+    },
+    
+    tipID: 'tip'
+});
+MixJS.loadJS('highlight/hljs-0.8.js',function(){
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+});
+</script>
+ 
+
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  config: ["TeX-AMS-MML_HTMLorMML.js"],
+  tex2jax: {inlineMath: [['\\(','\\)']]}});
+  //['$','$'], 避免货币价格冲突
+</script>
+<script type="text/javascript" src="./js/mathjax/MathJax.js"></script>
+
+<!--placeholder-->
+</body>
+</html>
